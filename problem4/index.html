@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Problem 4</title>
+    <style>
+        #test {
+            float: left;
+        }
+        table, td {
+            width: 500px;
+            border: 1px solid black;
+        }
+        .transpose {
+            padding-left: 50px;
+        }
+    </style>
+
+</head>
+<body>
+<div id="test"></div>
+<span class="transpose">
+    <button onclick="transposeTable()">transpose</button>
+</span>
+<script>
+    var tableData = [[11,12,13],[21,22,23],[31,32,33], [41,42,43]];
+
+    /* helper method to create html table */
+    function createTable(data) {
+        var table = document.createElement("TABLE");
+        table.setAttribute("id", "myTable");
+        document.getElementById("test").appendChild(table);
+        for (var i = 0 ; i < data.length; i++) {
+            var row = table.insertRow(i);
+            for (var j = 0; j < data[i].length; j++) {
+                var cell = row.insertCell(j);
+                cell.innerHTML = data[i][j];
+            }
+        }
+    }
+
+    /* javascript method to transpose table data */
+    function transpose (array) {
+        return array[0].map(function(col, i) {
+            return array.map(function(row) {
+                return row[i]
+            })
+        });
+    }
+    
+    function transposeTable() {
+        var data = transpose(tableData);
+        document.getElementById("test").innerHTML = '';
+        createTable(data);
+        tableData =  data;
+    }
+    
+    createTable(tableData); // create table with given data
+</script>
+</body>
+</html>

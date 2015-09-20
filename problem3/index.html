@@ -1,0 +1,57 @@
+<!doctype html>
+<html ng-app="myApp">
+	<head>
+		<title>Problem 3</title>
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<style type="text/css">
+			.row-deactivated{
+		        text-decoration:line-through;
+		        background-color:#FFEDED;
+	        }
+		</style>
+		<script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+	</head>
+	<body>
+		<div ng-controller="demoController as demo">
+			<div class="container">
+				<table class="table">
+				    <thead>
+				      <tr>
+				        <th>Name</th>
+				        <th>Description</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr ng-repeat="each in demo.records" ng-mouseover="each.showOptions = true;" ng-mouseleave="each.showOptions = false" ng-class="{'row-deactivated': each.deactivated}">
+				        <td>
+				        	<span ng-hide="each.isEdit" ng-bind="each.name"></span>
+				        	<div ng-show="each.isEdit">
+				        		<input type="text" ng-model="each.name">
+				        	</div>
+				        </td>
+				        <td>
+				        	<span ng-hide="each.isEdit" ng-bind="each.description"></span>
+				        	<div ng-show="each.isEdit">
+				        		<input type="text" ng-model="each.description">
+				        	</div>
+				        </td>
+				        <td>
+				        	<div ng-show="each.showOptions" class="pull-right">
+				        		<button type="button" ng-if="!each.isEdit" class="btn btn-default" ng-click="each.isEdit = true;">Edit</button>
+					        	<button type="button" class="btn btn-warning" ng-click="each.isEdit = false; each.deactivated = true;">Delete</button>
+					        	<button type="button" class="btn btn-success" ng-click="demo.undo($index)">Undo</button>
+				        	</div>
+				        </td>
+				      </tr>
+				    </tbody>
+				  </table>
+				  <div class="row">
+				  	<button type="button" class="btn btn-success" ng-click="demo.save()">Save</button>
+				  </div>
+			</div>
+		</div>
+	</body>
+</html>
